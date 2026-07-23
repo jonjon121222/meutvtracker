@@ -2946,8 +2946,8 @@ async function importBackup(e) {
                     await localforage.setItem('ct_profile_pic_v70', d.profilePic);
                 }
                 
-                alert("Backup MESCLADO com sucesso! Reiniciando...");
-                location.reload();
+                alert("Backup MESCLADO com sucesso!");
+initApp();
 
             } else {
                 // ==========================================
@@ -2967,8 +2967,8 @@ async function importBackup(e) {
                 if(d.franquias) { franquiasData = d.franquias; await localforage.setItem('ct_franquias_v70', franquiasData); }
                 if(d.profilePic) { await localforage.setItem('ct_profile_pic_v70', d.profilePic); }
                 
-                alert("Backup IMPORTADO E SUBSTITUÍDO! Reiniciando...");
-                location.reload();
+                alert("Backup IMPORTADO E SUBSTITUÍDO!");
+initApp();
             }
         } else { 
             alert("Arquivo inválido. O formato dos dados não bate com o esperado pelo Meu Tv Time."); 
