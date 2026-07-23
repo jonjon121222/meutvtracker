@@ -5727,7 +5727,20 @@ function updateGlobalCounterUI(g) {
         closeAllDropdowns();
     });
 
-initApp();
+// ====================================================
+// RECARREGAMENTO AUTOMÁTICO SUAVE (PWA)
+// ====================================================
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+        // Verifica se o usuário está acessando pelo atalho instalado no celular
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        
+        if (isStandalone) {
+            // Atualiza os dados silenciosamente sem recarregar a página inteira
+            initApp(); 
+        }
+    }
+});
     </script>
 </body>
 </html>
