@@ -5728,15 +5728,26 @@ function updateGlobalCounterUI(g) {
     });
 
 // ====================================================
-// RECARREGAMENTO AUTOMÁTICO SUAVE (PWA)
+// INICIALIZAÇÃO E RECARREGAMENTO SUAVE (PWA)
 // ====================================================
+
+// 1. Variável de controle para não carregar duas vezes
+let appJaIniciado = false;
+
+// 2. Garante que o app inicie ao ser aberto do zero (Evita a tela preta)
+window.addEventListener('DOMContentLoaded', () => {
+    if (!appJaIniciado) {
+        initApp();
+        appJaIniciado = true;
+    }
+});
+
+// 3. Atualiza os dados apenas quando voltar do segundo plano
 document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {
-        // Verifica se o usuário está acessando pelo atalho instalado no celular
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         
-        if (isStandalone) {
-            // Atualiza os dados silenciosamente sem recarregar a página inteira
+        if (isStandalone && appJaIniciado) {
             initApp(); 
         }
     }
