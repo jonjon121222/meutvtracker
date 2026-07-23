@@ -5731,23 +5731,15 @@ function updateGlobalCounterUI(g) {
 // INICIALIZAÇÃO E RECARREGAMENTO SUAVE (PWA)
 // ====================================================
 
-// 1. Variável de controle para não carregar duas vezes
-let appJaIniciado = false;
+// 1. Inicia o app IMEDIATAMENTE ao abrir (resolve a tela preta)
+initApp();
 
-// 2. Garante que o app inicie ao ser aberto do zero (Evita a tela preta)
-window.addEventListener('DOMContentLoaded', () => {
-    if (!appJaIniciado) {
-        initApp();
-        appJaIniciado = true;
-    }
-});
-
-// 3. Atualiza os dados apenas quando voltar do segundo plano
+// 2. Atualiza os dados silenciosamente apenas ao voltar do segundo plano
 document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         
-        if (isStandalone && appJaIniciado) {
+        if (isStandalone) {
             initApp(); 
         }
     }
